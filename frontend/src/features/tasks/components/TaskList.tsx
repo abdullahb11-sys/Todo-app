@@ -1,9 +1,10 @@
-import type { Task } from "../types";
 import { TaskCard } from "./TaskCard";
 
-interface TaskListProps {
+import type { Task } from "../types";
+
+interface Props {
   tasks: Task[];
-  onDeleteTask: (taskId: string) => void;
+  onDeleteTask: (id: string) => void;
   onEditTask: (task: Task) => void;
 }
 
@@ -11,13 +12,19 @@ export function TaskList({
   tasks,
   onDeleteTask,
   onEditTask,
-}: TaskListProps) {
-  if (tasks.length === 0) {
-    return <p>No tasks yet.</p>;
+}: Props) {
+
+  if (!tasks.length) {
+    return (
+      <div className="rounded-xl border bg-white p-10 text-center text-gray-500">
+        No tasks found.
+      </div>
+    );
   }
 
   return (
-    <div>
+    <div className="space-y-4">
+
       {tasks.map((task) => (
         <TaskCard
           key={task.id}
@@ -26,6 +33,7 @@ export function TaskList({
           onEditTask={onEditTask}
         />
       ))}
+
     </div>
   );
 }

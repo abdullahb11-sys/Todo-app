@@ -11,31 +11,55 @@ export function TaskCard({
   onDeleteTask,
   onEditTask,
 }: TaskCardProps) {
+  const badgeColor = {
+    Low: "bg-green-100 text-green-700",
+    Medium: "bg-yellow-100 text-yellow-700",
+    High: "bg-red-100 text-red-700",
+  }[task.priority];
+
   return (
-    <article>
-      <h3>{task.title}</h3>
+    <article className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
 
-      <p>{task.description}</p>
+      <div className="flex items-center justify-between">
 
-      <p>{task.priority}</p>
+        <h3 className="text-lg font-semibold">
+          {task.title}
+        </h3>
 
-      <p>{task.completed ? "Completed" : "Pending"}</p>
+        <span
+          className={`rounded-full px-3 py-1 text-xs font-medium ${badgeColor}`}
+        >
+          {task.priority}
+        </span>
 
-      <div className="space-x-2">
+      </div>
+
+      <p className="mt-3 text-gray-600">
+        {task.description || "No description"}
+      </p>
+
+      <p className="mt-3 text-sm text-gray-500">
+        {task.completed ? "✅ Completed" : "⏳ Pending"}
+      </p>
+
+      <div className="mt-5 flex gap-2">
+
         <button
-          type="button"
+          className="rounded-lg bg-amber-500 px-4 py-2 text-white hover:bg-amber-600"
           onClick={() => onEditTask(task)}
         >
           Edit
         </button>
 
         <button
-          type="button"
+          className="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
           onClick={() => onDeleteTask(task.id)}
         >
           Delete
         </button>
+
       </div>
+
     </article>
   );
 }

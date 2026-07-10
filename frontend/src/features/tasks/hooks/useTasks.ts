@@ -14,17 +14,17 @@ export function useTasks() {
     useState<Task | null>(null);
 
   useEffect(() => {
-    loadTasks();
+    refreshTasks();
   }, []);
 
-  async function loadTasks() {
+  async function refreshTasks() {
     const data = await taskApi.getAll();
     setTasks(data);
   }
 
   async function createTask(task: CreateTaskData) {
     await taskApi.create(task);
-    await loadTasks();
+    await refreshTasks();
   }
 
   async function updateTask(
@@ -32,27 +32,29 @@ export function useTasks() {
     task: Partial<CreateTaskData>
   ) {
     await taskApi.update(id, task);
-    await loadTasks();
+    await refreshTasks();
     setEditingTask(null);
   }
 
   async function deleteTask(id: string) {
     await taskApi.delete(id);
-    await loadTasks();
+    await refreshTasks();
   }
 
   return {
-    tasks,
-    search,
-    priorityFilter,
-    editingTask,
+  tasks,
+  search,
+  priorityFilter,
+  editingTask,
 
-    setSearch,
-    setPriorityFilter,
-    setEditingTask,
+  setSearch,
+  setPriorityFilter,
+  setEditingTask,
 
-    createTask,
-    updateTask,
-    deleteTask,
-  };
+  createTask,
+  updateTask,
+  deleteTask,
+
+  refreshTasks,
+};
 }

@@ -1,4 +1,4 @@
-import { api } from "./axios";
+import { axiosInstance } from "./axios";
 
 import type { Task } from "../features/tasks/types";
 import type { CreateTaskData } from "../features/tasks/schema";
@@ -12,14 +12,14 @@ interface ApiResponse<T> {
 export const taskApi = {
   async getAll() {
     const response =
-      await api.get<ApiResponse<Task[]>>("/tasks");
+      await axiosInstance.get<ApiResponse<Task[]>>("/tasks");
 
     return response.data.data;
   },
 
   async create(task: CreateTaskData) {
     const response =
-      await api.post<ApiResponse<Task>>(
+      await axiosInstance.post<ApiResponse<Task>>(
         "/tasks",
         task
       );
@@ -32,7 +32,7 @@ export const taskApi = {
     task: Partial<CreateTaskData>
   ) {
     const response =
-      await api.patch<ApiResponse<Task>>(
+      await axiosInstance.patch<ApiResponse<Task>>(
         `/tasks/${id}`,
         task
       );
@@ -41,6 +41,6 @@ export const taskApi = {
   },
 
   async delete(id: string) {
-    await api.delete(`/tasks/${id}`);
+    await axiosInstance.delete(`/tasks/${id}`);
   },
 };

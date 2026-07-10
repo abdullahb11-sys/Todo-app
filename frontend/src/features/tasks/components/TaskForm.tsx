@@ -73,57 +73,71 @@ export function TaskForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h2>
-        {editingTask
-          ? "Edit Task"
-          : "Create Task"}
-      </h2>
+    <form
+    onSubmit={handleSubmit(onSubmit)}
+    className="space-y-4 rounded-xl border bg-white p-5"
+>
 
-      <div>
-        <label>Title</label>
+<h2 className="text-xl font-semibold">
+    {editingTask ? "Edit Task" : "Create Task"}
+</h2>
 
-        <input
-          type="text"
-          {...register("title")}
-        />
+<div>
 
-        {errors.title && (
-          <p>{errors.title.message}</p>
-        )}
-      </div>
+<label className="mb-1 block font-medium">
+Title
+</label>
 
-      <div>
-        <label>Description</label>
+<input
+className="w-full rounded-lg border p-2"
+type="text"
+{...register("title")}
+/>
 
-        <textarea
-          {...register("description")}
-        />
+</div>
 
-        {errors.description && (
-          <p>{errors.description.message}</p>
-        )}
-      </div>
+<div>
 
-      <div>
-        <label>Priority</label>
+<label className="mb-1 block font-medium">
+Description
+</label>
 
-        <select {...register("priority")}>
-          <option value="Low">Low</option>
-          <option value="Medium">
-            Medium
-          </option>
-          <option value="High">
-            High
-          </option>
-        </select>
-      </div>
+<textarea
+rows={4}
+className="w-full rounded-lg border p-2"
+{...register("description")}
+/>
 
-      <button type="submit">
-        {editingTask
-          ? "Update Task"
-          : "Create Task"}
-      </button>
-    </form>
+</div>
+
+<div>
+
+<label className="mb-1 block font-medium">
+Priority
+</label>
+
+<select
+className="w-full rounded-lg border p-2"
+{...register("priority")}
+>
+
+<option>Low</option>
+<option>Medium</option>
+<option>High</option>
+
+</select>
+
+</div>
+
+<button
+className="rounded-lg bg-blue-600 px-5 py-2 text-white hover:bg-blue-700"
+type="submit"
+>
+
+{editingTask ? "Update Task" : "Create Task"}
+
+</button>
+
+</form>
   );
 }
